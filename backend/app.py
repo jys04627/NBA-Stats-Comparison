@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from nba_api.live.nba.endpoints import scoreboard
 from nba_api.stats.static import players
-from nba_api.stats.endpoints import playercareerstats
+from nba_api.stats.endpoints import playercareerstats, commonplayerinfo
 
 app = Flask(__name__)
 CORS(app)
@@ -17,20 +17,17 @@ def search_players():
     if not query:
         return jsonify([])
 
-    # Fetch all players (this might be slow if done every time, caching recommended in production)
-    # For now, we fetch once or rely on nba_api's internal caching if available.
-    # commonallplayers.CommonAllPlayers returns a list of all players.
     try:
-        # IsOnlyCurrentSeason=0 allows searching for historic players too
         all_players = players.get_players()
         
         # Filter by name
         matching_players = [
             p for p in all_players 
             if query in p['full_name'].lower()
-        ]
+        ][:20]  # Limit to 20 results
         
-        return jsonify(matching_players[:20]) # Limit to 20 results
+        # Return basic info - we'll fetch team info when player is selected
+        return jsonify(matching_players)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

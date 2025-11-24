@@ -58,28 +58,38 @@ function App() {
 
   return (
     <div className="app-container">
-      <header>
+      <header className="animate-enter">
         <h1>NBA Stats Comparison</h1>
       </header>
 
       <div className="comparison-container">
-        <div className="player-slot">
+        <div className="player-slot animate-enter delay-1">
           <PlayerSearch label="Player 1" onSelectPlayer={setPlayer1} />
           {player1 && (
-            <div className="player-card">
-              <img
-                src={getHeadshotUrl(player1, stats1)}
-                alt={player1.full_name}
-                className="player-headshot"
-                onError={(e) => {
-                  // If historical fails, try latest, then placeholder
-                  if (e.target.src.includes('ak-static')) {
-                    e.target.src = `https://cdn.nba.com/headshots/nba/latest/1040x760/${player1.id}.png`;
-                  } else {
-                    e.target.src = 'https://via.placeholder.com/200x150?text=No+Image';
-                  }
-                }}
-              />
+            <div className="player-card animate-enter">
+              <div className="player-image-container">
+                <img
+                  src={getHeadshotUrl(player1, stats1)}
+                  alt={player1.full_name}
+                  className="player-headshot"
+                  onError={(e) => {
+                    // If historical fails, try latest, then placeholder
+                    if (e.target.src.includes('ak-static')) {
+                      e.target.src = `https://cdn.nba.com/headshots/nba/latest/1040x760/${player1.id}.png`;
+                    } else {
+                      e.target.src = 'https://via.placeholder.com/200x150?text=No+Image';
+                    }
+                  }}
+                />
+                {stats1 && stats1.TEAM_ID && (
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${stats1.TEAM_ID}/global/L/logo.svg`}
+                    alt={stats1.TEAM_ABBREVIATION}
+                    className="team-logo-overlay"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                )}
+              </div>
               <h2>{player1.full_name}</h2>
               <p className="team-name">{stats1 ? stats1.TEAM_ABBREVIATION : ''}</p>
               {/* Stats will go here later */}
@@ -87,24 +97,34 @@ function App() {
           )}
         </div>
 
-        <div className="vs-divider">VS</div>
+        <div className="vs-divider animate-enter delay-2">VS</div>
 
-        <div className="player-slot">
+        <div className="player-slot animate-enter delay-3">
           <PlayerSearch label="Player 2" onSelectPlayer={setPlayer2} />
           {player2 && (
-            <div className="player-card">
-              <img
-                src={getHeadshotUrl(player2, stats2)}
-                alt={player2.full_name}
-                className="player-headshot"
-                onError={(e) => {
-                  if (e.target.src.includes('ak-static')) {
-                    e.target.src = `https://cdn.nba.com/headshots/nba/latest/1040x760/${player2.id}.png`;
-                  } else {
-                    e.target.src = 'https://via.placeholder.com/200x150?text=No+Image';
-                  }
-                }}
-              />
+            <div className="player-card animate-enter">
+              <div className="player-image-container">
+                <img
+                  src={getHeadshotUrl(player2, stats2)}
+                  alt={player2.full_name}
+                  className="player-headshot"
+                  onError={(e) => {
+                    if (e.target.src.includes('ak-static')) {
+                      e.target.src = `https://cdn.nba.com/headshots/nba/latest/1040x760/${player2.id}.png`;
+                    } else {
+                      e.target.src = 'https://via.placeholder.com/200x150?text=No+Image';
+                    }
+                  }}
+                />
+                {stats2 && stats2.TEAM_ID && (
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${stats2.TEAM_ID}/global/L/logo.svg`}
+                    alt={stats2.TEAM_ABBREVIATION}
+                    className="team-logo-overlay"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                )}
+              </div>
               <h2>{player2.full_name}</h2>
               <p className="team-name">{stats2 ? stats2.TEAM_ABBREVIATION : ''}</p>
             </div>
