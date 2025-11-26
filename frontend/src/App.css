@@ -138,6 +138,9 @@ header h1 {
   padding: 1rem;
   background: #252525;
   border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .player-image-container {
@@ -145,30 +148,51 @@ header h1 {
   width: 100%;
   max-width: 250px;
   margin: 0 auto 1rem auto;
+  background: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  /* Ensures logo doesn't stick out */
 }
 
 .player-headshot {
   width: 100%;
   max-width: 250px;
   border-radius: 8px;
-  background: #333;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
   display: block;
 }
 
-.team-logo-overlay {
+.player-info {
+  position: relative;
+  padding: 2rem 1rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.team-logo-bg {
   position: absolute;
-  top: 50%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
-  opacity: 0.15;
+  opacity: 0.1;
+  z-index: -1;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+.player-info h2,
+.player-info .team-name {
+  position: relative;
   z-index: 1;
-  filter: grayscale(20%);
 }
 
 .team-name {

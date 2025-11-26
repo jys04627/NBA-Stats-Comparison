@@ -67,6 +67,14 @@ function App() {
           <PlayerSearch label="Player 1" onSelectPlayer={setPlayer1} />
           {player1 && (
             <div className="player-card animate-enter">
+              {stats1 && stats1.TEAM_ID && (
+                <img
+                  src={`https://cdn.nba.com/logos/nba/${stats1.TEAM_ID}/global/L/logo.svg`}
+                  alt={stats1.TEAM_ABBREVIATION}
+                  className="team-logo-bg"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              )}
               <div className="player-image-container">
                 <img
                   src={getHeadshotUrl(player1, stats1)}
@@ -81,17 +89,11 @@ function App() {
                     }
                   }}
                 />
-                {stats1 && stats1.TEAM_ID && (
-                  <img
-                    src={`https://cdn.nba.com/logos/nba/${stats1.TEAM_ID}/global/L/logo.svg`}
-                    alt={stats1.TEAM_ABBREVIATION}
-                    className="team-logo-overlay"
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                )}
               </div>
-              <h2>{player1.full_name}</h2>
-              <p className="team-name">{stats1 ? stats1.TEAM_ABBREVIATION : ''}</p>
+              <div className="player-info">
+                <h2>{player1.full_name}</h2>
+                <p className="team-name">{stats1 ? stats1.TEAM_ABBREVIATION : ''}</p>
+              </div>
               {/* Stats will go here later */}
             </div>
           )}
@@ -103,6 +105,14 @@ function App() {
           <PlayerSearch label="Player 2" onSelectPlayer={setPlayer2} />
           {player2 && (
             <div className="player-card animate-enter">
+              {stats2 && stats2.TEAM_ID && (
+                <img
+                  src={`https://cdn.nba.com/logos/nba/${stats2.TEAM_ID}/global/L/logo.svg`}
+                  alt={stats2.TEAM_ABBREVIATION}
+                  className="team-logo-bg"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              )}
               <div className="player-image-container">
                 <img
                   src={getHeadshotUrl(player2, stats2)}
@@ -116,17 +126,11 @@ function App() {
                     }
                   }}
                 />
-                {stats2 && stats2.TEAM_ID && (
-                  <img
-                    src={`https://cdn.nba.com/logos/nba/${stats2.TEAM_ID}/global/L/logo.svg`}
-                    alt={stats2.TEAM_ABBREVIATION}
-                    className="team-logo-overlay"
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                )}
               </div>
-              <h2>{player2.full_name}</h2>
-              <p className="team-name">{stats2 ? stats2.TEAM_ABBREVIATION : ''}</p>
+              <div className="player-info">
+                <h2>{player2.full_name}</h2>
+                <p className="team-name">{stats2 ? stats2.TEAM_ABBREVIATION : ''}</p>
+              </div>
             </div>
           )}
         </div>
