@@ -180,8 +180,8 @@ header h1 {
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
+  width: 60%;
+  height: 60%;
   object-fit: contain;
   opacity: 0.1;
   z-index: -1;
@@ -245,6 +245,55 @@ header h1 {
 
 .comparison-view {
   width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.comparison-view.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.comparison-view.visible .stat-row {
+  animation: slideInStat 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.comparison-view.visible .stat-row:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.comparison-view.visible .stat-row:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.comparison-view.visible .stat-row:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.comparison-view.visible .stat-row:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.comparison-view.visible .stat-row:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.comparison-view.visible .stat-row:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+@keyframes slideInStat {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .season-select {
