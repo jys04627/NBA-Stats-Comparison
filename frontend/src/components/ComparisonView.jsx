@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import StatsChart from './StatsChart';
 
 const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, setSeason1, setSeason2 }) => {
     const statsRef = useRef(null);
@@ -81,6 +82,17 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                 <div>{renderSeasonSelector(stats1, season1, setSeason1)}</div>
                 <div>{renderSeasonSelector(stats2, season2, setSeason2)}</div>
             </div>
+
+            {/* Chart Visualization */}
+            <div className="charts-section">
+                <StatsChart
+                    stats1={stats1}
+                    stats2={stats2}
+                    player1Name={player1 ? player1.full_name : 'Player 1'}
+                    player2Name={player2 ? player2.full_name : 'Player 2'}
+                />
+            </div>
+
             <div className="stats-grid">
                 {renderStatRow('PPG', 'PPG')}
                 {renderStatRow('RPG', 'RPG')}
