@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import StatsChart from './StatsChart';
+import CustomSelect from './CustomSelect';
 
 const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, setSeason1, setSeason2 }) => {
     const statsRef = useRef(null);
@@ -42,16 +43,18 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
     const renderSeasonSelector = (stats, currentSeason, setSeason) => {
         if (!stats || !stats.available_seasons) return null;
 
+        const seasonOptions = stats.available_seasons.map(season => ({
+            value: season,
+            label: season
+        }));
+
         return (
-            <select
+            <CustomSelect
                 value={currentSeason || stats.SEASON_ID}
-                onChange={(e) => setSeason(e.target.value)}
-                className="season-select"
-            >
-                {stats.available_seasons.map(season => (
-                    <option key={season} value={season}>{season}</option>
-                ))}
-            </select>
+                onChange={(value) => setSeason(value)}
+                options={seasonOptions}
+                className="season-select-custom"
+            />
         );
     };
 
@@ -86,18 +89,18 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
 
             {/* Chart Type Selector */}
             <div className="chart-type-selector-container">
-                <label htmlFor="chart-type-select">Chart Type: </label>
-                <select
-                    id="chart-type-select"
+                <CustomSelect
                     value={chartType}
-                    onChange={(e) => setChartType(e.target.value)}
-                    className="chart-type-select"
-                >
-                    <option value="radar">Radar Chart</option>
-                    <option value="bar">Bar Chart</option>
-                    <option value="line">Stick Chart</option>
-                    <option value="polarArea">Polar Area Chart</option>
-                </select>
+                    onChange={(value) => setChartType(value)}
+                    options={[
+                        { value: 'radar', label: 'Radar Chart' },
+                        { value: 'bar', label: 'Bar Chart' },
+                        { value: 'line', label: 'Stick Chart' },
+                        { value: 'polarArea', label: 'Polar Area Chart' }
+                    ]}
+                    label="Chart Type:"
+                    className="chart-type-select-custom"
+                />
             </div>
 
             {/* Chart Visualization */}

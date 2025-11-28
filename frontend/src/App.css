@@ -468,6 +468,28 @@ header h1 {
   transform: translateY(-2px);
 }
 
+/* Modern Dropdown Options */
+.season-select option,
+.chart-type-select option {
+  background: linear-gradient(135deg, rgba(29, 66, 138, 0.9), rgba(201, 8, 42, 0.9));
+  color: white;
+  padding: 0.8rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.season-select option:hover,
+.chart-type-select option:hover {
+  background: linear-gradient(135deg, rgba(29, 66, 138, 1), rgba(201, 8, 42, 1));
+  color: #fff;
+}
+
+.season-select option:checked,
+.chart-type-select option:checked {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  font-weight: 600;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .charts-section {
