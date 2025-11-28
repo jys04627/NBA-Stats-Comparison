@@ -5,6 +5,7 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
     const statsRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [animationKey, setAnimationKey] = useState(0);
+    const [chartType, setChartType] = useState('radar');
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -83,6 +84,22 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                 <div>{renderSeasonSelector(stats2, season2, setSeason2)}</div>
             </div>
 
+            {/* Chart Type Selector */}
+            <div className="chart-type-selector-container">
+                <label htmlFor="chart-type-select">Chart Type: </label>
+                <select
+                    id="chart-type-select"
+                    value={chartType}
+                    onChange={(e) => setChartType(e.target.value)}
+                    className="chart-type-select"
+                >
+                    <option value="radar">Radar Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="line">Stick Chart</option>
+                    <option value="polarArea">Polar Area Chart</option>
+                </select>
+            </div>
+
             {/* Chart Visualization */}
             <div className="charts-section">
                 <StatsChart
@@ -90,6 +107,7 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                     stats2={stats2}
                     player1Name={player1 ? player1.full_name : 'Player 1'}
                     player2Name={player2 ? player2.full_name : 'Player 2'}
+                    chartType={chartType}
                 />
             </div>
 
