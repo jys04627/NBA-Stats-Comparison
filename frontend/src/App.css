@@ -153,6 +153,12 @@ header h1 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   /* Ensures logo doesn't stick out */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.player-image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
 .player-headshot {
