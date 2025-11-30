@@ -366,6 +366,13 @@ header h1 {
   font-size: 1.5rem;
   font-weight: bold;
   width: 100px;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  cursor: default;
+}
+
+.stat-val:hover {
+  transform: translateY(-5px);
+  text-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
 }
 
 .winner {
