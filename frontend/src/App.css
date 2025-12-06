@@ -105,6 +105,20 @@ header h1 {
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid #333;
+  opacity: 0;
+  animation: fadeInResult 0.3s ease forwards;
+}
+
+@keyframes fadeInResult {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .search-result-item {
