@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import feedparser
 from nba_api.live.nba.endpoints import scoreboard
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import playercareerstats, commonplayerinfo
@@ -80,6 +81,45 @@ def get_player_stats():
             target_season['APG'] = 0
             
         return jsonify(target_season)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/news', methods=['GET'])
+def get_player_news():
+    player_name = request.args.get('name')
+    if not player_name:
+        return jsonify({"error": "Missing player name"}), 400
+
+    try:
+        # ESPN NBA RSS Feed
+        feed_url = "https://www.espn.com/espn/rss/nba/news"
+        feed = feedparser.parse(feed_url)
+        
+        # Simple keyword matching
+        # Split player name into parts (e.g. "LeBron", "James") to match partials if needed,
+        # but full name match is safer to reduce noise.
+        # We'll check if the player's last name appears in the title or description.
+        name_parts = player_name.split()
+        last_name = name_parts[-1] if name_parts else player_name
+        
+        relevant_news = []
+        for entry in feed.entries:
+            title = entry.title
+            description = entry.description
+            
+            # Check if full name or last name is in the text
+            # Using last name is broader, might match other players with same last name (e.g. Green, Curry)
+            # but usually better than getting nothing.
+            if player_name.lower() in title.lower() or player_name.lower() in description.lower() or \
+               last_name.lower() in title.lower() or last_name.lower() in description.lower():
+                relevant_news.append({
+                    "title": title,
+                    "link": entry.link,
+                    "published": entry.published,
+                    "summary": description
+                })
+        
+        return jsonify(relevant_news[:5]) # Return top 5 matches
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

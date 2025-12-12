@@ -3,3 +3,4 @@ flask-cors
 nba_api
 pandas
 numpy<2.0.0
+feedparser

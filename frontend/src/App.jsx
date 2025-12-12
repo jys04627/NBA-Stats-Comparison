@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PlayerSearch from './components/PlayerSearch';
 import ComparisonView from './components/ComparisonView';
 import Draggable from './components/Draggable';
+import PlayerNews from './components/PlayerNews';
 import './App.css';
 
 function App() {
@@ -96,6 +97,7 @@ function App() {
                   <h2>{player1.full_name}</h2>
                   <p className="team-name">{stats1 ? stats1.TEAM_ABBREVIATION : ''}</p>
                 </div>
+                <PlayerNews playerName={player1.full_name} />
                 {/* Stats will go here later */}
               </Draggable>
             </div>
@@ -135,6 +137,7 @@ function App() {
                   <h2>{player2.full_name}</h2>
                   <p className="team-name">{stats2 ? stats2.TEAM_ABBREVIATION : ''}</p>
                 </div>
+                <PlayerNews playerName={player2.full_name} />
               </Draggable>
             </div>
           )}
