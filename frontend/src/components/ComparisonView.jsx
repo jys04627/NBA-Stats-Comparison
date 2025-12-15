@@ -7,6 +7,7 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
     const [isVisible, setIsVisible] = useState(false);
     const [animationKey, setAnimationKey] = useState(0);
     const [chartType, setChartType] = useState('radar');
+    const [chartSize, setChartSize] = useState(1); // 1 = 100%
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -87,20 +88,37 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                 <div>{renderSeasonSelector(stats2, season2, setSeason2)}</div>
             </div>
 
-            {/* Chart Type Selector */}
-            <div className="chart-type-selector-container">
-                <CustomSelect
-                    value={chartType}
-                    onChange={(value) => setChartType(value)}
-                    options={[
-                        { value: 'radar', label: 'Radar Chart' },
-                        { value: 'bar', label: 'Bar Chart' },
-                        { value: 'line', label: 'Stick Chart' },
-                        { value: 'polarArea', label: 'Polar Area Chart' }
-                    ]}
-                    label="Chart Type:"
-                    className="chart-type-select-custom"
-                />
+
+            {/* Chart Controls */}
+            <div className="chart-controls" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                <div className="chart-type-selector-container" style={{ margin: 0 }}>
+                    <CustomSelect
+                        value={chartType}
+                        onChange={(value) => setChartType(value)}
+                        options={[
+                            { value: 'radar', label: 'Radar Chart' },
+                            { value: 'bar', label: 'Bar Chart' },
+                            { value: 'line', label: 'Stick Chart' },
+                            { value: 'polarArea', label: 'Polar Area Chart' }
+                        ]}
+                        label="Chart Type:"
+                        className="chart-type-select-custom"
+                    />
+                </div>
+
+                <div className="chart-size-control">
+                    <label htmlFor="chart-size-slider">Graph Size: {Math.round(chartSize * 100)}%</label>
+                    <input
+                        id="chart-size-slider"
+                        type="range"
+                        min="0.5"
+                        max="1.5"
+                        step="0.1"
+                        value={chartSize}
+                        onChange={(e) => setChartSize(parseFloat(e.target.value))}
+                        className="size-slider"
+                    />
+                </div>
             </div>
 
             {/* Chart Visualization */}
@@ -111,6 +129,7 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                     player1Name={player1 ? player1.full_name : 'Player 1'}
                     player2Name={player2 ? player2.full_name : 'Player 2'}
                     chartType={chartType}
+                    sizeScale={chartSize}
                 />
             </div>
 
@@ -122,7 +141,7 @@ const ComparisonView = ({ player1, player2, stats1, stats2, season1, season2, se
                 {renderStatRow('3P%', 'FG3_PCT')}
                 {renderStatRow('FT%', 'FT_PCT')}
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -28,7 +28,7 @@ ChartJS.register(
     Legend
 );
 
-const StatsChart = ({ stats1, stats2, player1Name, player2Name, chartType = 'radar' }) => {
+const StatsChart = ({ stats1, stats2, player1Name, player2Name, chartType = 'radar', sizeScale = 1 }) => {
     if (!stats1 && !stats2) {
         return (
             <div className="stats-chart-container">
@@ -228,7 +228,7 @@ const StatsChart = ({ stats1, stats2, player1Name, player2Name, chartType = 'rad
     return (
         <div className={`stats-chart-container ${chartType}-chart`}>
             <h3 className="chart-title">Stats Comparison</h3>
-            <div className="chart-wrapper">
+            <div className="chart-wrapper" style={{ maxWidth: `${350 * sizeScale}px` }}>
                 {renderChart()}
             </div>
         </div>
